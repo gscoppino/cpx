@@ -33,13 +33,13 @@ describe("The watch method", () => {
             command.stdin.write("KILL")
             command.on("exit", () => {
                 teardownTestDir("test-ws")
-                done()
+                setTimeout(done, 10)
             })
             command = null
         }
         else {
             teardownTestDir("test-ws")
-            done()
+            setTimeout(done, 10)
         }
     })
 
@@ -52,7 +52,7 @@ describe("The watch method", () => {
         if (watcher) {
             watcher.on("watch-ready", function listener() {
                 watcher.removeListener("watch-ready", listener)
-                cb()
+                setTimeout(cb, 10)
             })
         }
         else if (command) {
@@ -60,12 +60,12 @@ describe("The watch method", () => {
                 // Done the first copies.
                 if (chunk.indexOf("Be watching in") >= 0) {
                     command.stdout.removeListener("data", listener)
-                    cb()
+                    setTimeout(cb, 10)
                 }
             })
         }
         else {
-            cb()
+            setTimeout(cb, 10)
         }
     }
 
@@ -78,7 +78,7 @@ describe("The watch method", () => {
         if (watcher) {
             watcher.on("copy", function listener() {
                 watcher.removeListener("copy", listener)
-                cb()
+                setTimeout(cb, 10)
             })
         }
         else if (command) {
@@ -86,12 +86,12 @@ describe("The watch method", () => {
                 // Done the first copies.
                 if (chunk.indexOf("Copied: ") >= 0) {
                     command.stdout.removeListener("data", listener)
-                    cb()
+                    setTimeout(cb, 10)
                 }
             })
         }
         else {
-            cb()
+            setTimeout(cb, 10)
         }
     }
 
@@ -104,7 +104,7 @@ describe("The watch method", () => {
         if (watcher) {
             watcher.on("remove", function listener() {
                 watcher.removeListener("remove", listener)
-                cb()
+                setTimeout(cb, 10)
             })
         }
         else if (command) {
@@ -112,12 +112,12 @@ describe("The watch method", () => {
                 // Done the first copies.
                 if (chunk.indexOf("Removed: ") >= 0) {
                     command.stdout.removeListener("data", listener)
-                    cb()
+                    setTimeout(cb, 10)
                 }
             })
         }
         else {
-            cb()
+            setTimeout(cb, 10)
         }
     }
 
