@@ -27,7 +27,7 @@ module.exports = function main(source, outDir, args) {
             return (file) => {
                 const env = Object.create(process.env, {FILE: {value: file}})
                 const parts = parseShellQuote(command, env)
-                const child = spawn(parts[0], parts.slice(1), {env})
+                const child = spawn(parts[0], parts.slice(1), {env, shell: true })
                 const outer = duplexer(child.stdin, child.stdout)
                 child.on("exit", (code) => {
                     if (code !== 0) {
